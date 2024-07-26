@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 26, 2024 at 08:22 AM
+-- Generation Time: Jul 26, 2024 at 12:03 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `maju_jaya_farm`
+-- Database: `sismaku`
 --
 
 -- --------------------------------------------------------
@@ -75,7 +75,7 @@ CREATE TABLE `t_barang` (
 --
 
 INSERT INTO `t_barang` (`barang_id`, `barang_kode`, `barang_kategori`, `barang_stok`, `barang_nama`, `barang_satuan`, `barang_tanggal`, `barang_hapus`) VALUES
-(31, 'KB0017', '3', '3', 'BETTERZYM', 'pcs', '2023-07-27', 0),
+(31, 'KB0017', '3', '2', 'BETTERZYM', 'pcs', '2023-07-27', 0),
 (32, 'KB0018', '3', '5', 'MEDIVAC CORYZA', 'pcs', '2023-07-27', 0),
 (33, 'KB0019', '3', '0', 'EGG STIMULANT', 'pcs', '2023-07-29', 0),
 (34, 'KB0020', '3', '0', 'CYPROTIL PLUS', 'pcs', '2023-07-29', 0),
@@ -87,15 +87,15 @@ INSERT INTO `t_barang` (`barang_id`, `barang_kode`, `barang_kategori`, `barang_s
 (42, 'KB0028', '3', '0', 'SUP ELEKTOLIT', 'pcs', '2023-07-29', 0),
 (43, 'KB0029', '3', '0', 'MDCP', 'pcs', '2023-07-29', 0),
 (44, 'KB0030', '3', '0', 'PITABLOCK', 'pcs', '2023-07-29', 0),
-(68, 'KB0054', '2', '15', 'JAGUNG PAK HUSEN', 'kg', '2023-08-05', 0),
+(68, 'KB0054', '2', '10', 'JAGUNG PAK HUSEN', 'kg', '2023-08-05', 0),
 (69, 'KB0055', '2', '0', 'JAGUNG', 'kg', '2023-08-05', 0),
 (70, 'KB0056', '2', '5', 'KATUL', 'kg', '2023-08-05', 0),
 (71, 'KB0057', '2', '0', 'BKK', 'kg', '2023-08-05', 0),
 (72, 'KB0058', '2', '0', 'MBM', 'kg', '2023-08-05', 0),
 (73, 'KB0059', '2', '0', 'MENIR BATU', 'kg', '2023-08-05', 0),
-(78, 'KB0064', '1', '100', 'TELUR MERAH', 'tray', '2023-08-05', 0),
+(78, 'KB0064', '1', '110', 'TELUR MERAH', 'tray', '2023-08-05', 0),
 (134, 'KB00120', '2', '10', 'GANDUM', 'kg', '2023-11-21', 0),
-(138, 'KB0021', '4', '5', 'Kotoran Ayam', 'kg', '2024-07-25', 0),
+(138, 'KB0021', '4', '15', 'Kotoran Ayam', 'kg', '2024-07-25', 0),
 (139, 'KB0022', '5', '1000', 'Ayam Petelur Sussex', 'ekor', '2024-07-25', 0);
 
 -- --------------------------------------------------------
@@ -375,7 +375,8 @@ CREATE TABLE `t_recording` (
 
 INSERT INTO `t_recording` (`recording_id`, `recording_nomor`, `recording_user`, `recording_tanggal`, `recording_bobot`, `recording_populasi`, `recording_keterangan`, `recording_hapus`) VALUES
 (280, 'RC-230624-1', '2', '2024-06-23', '2', '1000', 'recoding hari minggu', 0),
-(286, 'RC-250724-2', '2', '2024-07-25', '2', '500', 'kotoran ayam edit', 0);
+(286, 'RC-250724-2', '2', '2024-07-25', '2', '500', 'kotoran ayam edit', 0),
+(288, 'RC-260724-3', '2', '2024-07-26', '2', '1000', 'test ayam mati', 0);
 
 -- --------------------------------------------------------
 
@@ -389,7 +390,7 @@ CREATE TABLE `t_recording_barang` (
   `recording_barang_barang` text DEFAULT '0',
   `recording_barang_stok` text DEFAULT '0',
   `recording_barang_jumlah` text DEFAULT '0',
-  `recording_barang_kategori` set('telur','pakan','obat','kotoran') DEFAULT NULL,
+  `recording_barang_kategori` text DEFAULT NULL,
   `recording_barang_tanggal` date DEFAULT curdate()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -406,7 +407,12 @@ INSERT INTO `t_recording_barang` (`recording_barang_id`, `recording_barang_nomor
 (566, 'RC-250724-2', '78', '0', '10', 'telur', '2024-07-25'),
 (567, 'RC-250724-2', '68', '20', '5', 'pakan', '2024-07-25'),
 (568, 'RC-250724-2', '31', '5', '2', 'obat', '2024-07-25'),
-(569, 'RC-250724-2', '138', '0', '10', 'kotoran', '2024-07-25');
+(569, 'RC-250724-2', '138', '0', '10', 'kotoran', '2024-07-25'),
+(584, 'RC-260724-3', '78', '0', '10', 'telur', '2024-07-26'),
+(585, 'RC-260724-3', '68', '15', '5', 'pakan', '2024-07-26'),
+(586, 'RC-260724-3', '31', '3', '1', 'obat', '2024-07-26'),
+(587, 'RC-260724-3', '139', '1000', '15', 'ayam', '2024-07-26'),
+(588, 'RC-260724-3', '138', '0', '10', 'kotoran', '2024-07-26');
 
 -- --------------------------------------------------------
 
@@ -594,13 +600,13 @@ ALTER TABLE `t_penjualan_barang`
 -- AUTO_INCREMENT for table `t_recording`
 --
 ALTER TABLE `t_recording`
-  MODIFY `recording_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=287;
+  MODIFY `recording_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=289;
 
 --
 -- AUTO_INCREMENT for table `t_recording_barang`
 --
 ALTER TABLE `t_recording_barang`
-  MODIFY `recording_barang_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=570;
+  MODIFY `recording_barang_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=589;
 
 --
 -- AUTO_INCREMENT for table `t_user`

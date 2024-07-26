@@ -17,7 +17,7 @@
       <div class="box"> 
         <div class="box-header with-border">
  
-          <br/>
+          <br/> 
 
           <div hidden align="left" id="back">
             <a href="<?= @$_SERVER['HTTP_REFERER'] ?>"><button type="button" class="btn bg-navy"><i class="fa fa-arrow-left"></i> Kembali</button></a>
@@ -163,11 +163,11 @@
                   <th width="500">Jumlah</th>
                   <th hidden>Kategori</th>
                   <th width="1">
-                    <button type="button" onclick="clone('mati')" class="add btn btn-success btn-sm"><i class="fa fa-plus"></i></button>
+                    <button type="button" onclick="clone('ayam')" class="add btn btn-success btn-sm"><i class="fa fa-plus"></i></button>
                   </th>
                 </tr>
               </thead>
-              <tbody id="paste_mati"></tbody>
+              <tbody id="paste_ayam"></tbody>
             </table>
 
           </div>
@@ -298,6 +298,36 @@
     </td>
   </tr>
 
+  <!-- AYAM MATI -->
+  <tr id="copy_ayam" hidden>
+    <td>
+      <select id="ayam" class="form-control ayam" required name="ayam[]">
+        <option value="" hidden>-- Pilih --</option>
+        <?php foreach ($ayam_data as $value): ?>
+          <option value="<?=@$value['barang_id']?>"><?=@$value['barang_nama']?></option>
+        <?php endforeach ?>
+      </select>
+    </td>
+    <td>
+      <div class="input-group">
+        <input id="ayam_stok" readonly value="0" min="0" type="number" name="ayam_stok[]" class="form-control ayam_stok" required>
+        <span class="input-group-addon ayam_satuan"></span>
+      </div>
+    </td>
+    <td>
+      <div class="input-group">
+        <input id="ayam_jumlah" value="0" min="0" type="number" name="ayam_jumlah[]" class="form-control ayam_jumlah" required>
+        <span class="input-group-addon ayam_satuan"></span>
+      </div>
+    </td>
+    <td hidden>
+       <input value="ayam" type="text" name="ayam_kategori[]" class="form-control ayam_kategori">
+    </td>
+    <td>
+      <button type="button" class="remove btn btn-danger btn-sm" onclick="$(this).closest('tr').remove()"><i class="fa fa-minus"></i></button>
+    </td>
+  </tr>
+
   <!-- KOTORAN -->
   <tr id="copy_kotoran" hidden> 
     <td>
@@ -327,7 +357,7 @@
 <script type="text/javascript">
 
 //satuan pakan, obat
-$(document).on('change', '#pakan, #obat, #telur, #kotoran', function() {
+$(document).on('change', '#pakan, #obat, #telur, #kotoran, #ayam', function() {
 
   var id = $(this).val();
   var nama = $(this).prop('name').replace("[]", "");  

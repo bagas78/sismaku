@@ -257,7 +257,7 @@ CREATE TABLE `t_recording_barang` (
   `recording_barang_barang` text DEFAULT '0',
   `recording_barang_stok` text DEFAULT '0',
   `recording_barang_jumlah` text DEFAULT '0',
-  `recording_barang_kategori` set('telur','pakan','obat','kotoran') DEFAULT NULL,
+  `recording_barang_kategori` text DEFAULT NULL,
   `recording_barang_tanggal` date DEFAULT curdate()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

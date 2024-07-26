@@ -52,6 +52,9 @@ class Recording extends CI_Controller{
 		//kotoran
 		$data['kotoran_data'] = $this->query_builder->view("SELECT * FROM t_barang WHERE barang_hapus = 0 AND barang_kategori = 4");
 
+		//ayam
+		$data['ayam_data'] = $this->query_builder->view("SELECT * FROM t_barang WHERE barang_hapus = 0 AND barang_kategori = 5");
+
 		//populasi
 		$data['populasi_data'] = $this->query_builder->view_row("SELECT * FROM t_barang WHERE barang_kategori = 5");
 
@@ -121,6 +124,17 @@ class Recording extends CI_Controller{
 				}	
 			}
 
+			//save ayam
+			if (@$_POST['ayam']) {
+
+				$kotoran = count($_POST['ayam']);
+				
+				for ($i = 0; $i < $kotoran; ++$i) {
+				
+					$this->query_builder->add('t_recording_barang', ['recording_barang_nomor' => $nomor, 'recording_barang_barang' => $_POST['ayam'][$i], 'recording_barang_stok' => $_POST['ayam_stok'][$i], 'recording_barang_jumlah' => $_POST['ayam_jumlah'][$i], 'recording_barang_kategori' => $_POST['ayam_kategori'][$i]]);
+				}	
+			}
+
 			//save kotoran
 			if (@$_POST['kotoran']) {
 
@@ -182,6 +196,9 @@ class Recording extends CI_Controller{
 		//kotoran
 		$data['kotoran_data'] = $this->query_builder->view("SELECT * FROM t_barang WHERE barang_hapus = 0 AND barang_kategori = 4");
 
+		//ayam
+		$data['ayam_data'] = $this->query_builder->view("SELECT * FROM t_barang WHERE barang_hapus = 0 AND barang_kategori = 5");
+
 		//populasi
 		$data['populasi_data'] = $this->query_builder->view_row("SELECT * FROM t_barang WHERE barang_kategori = 5");
 
@@ -211,6 +228,9 @@ class Recording extends CI_Controller{
 
 		//kotoran
 		$data['kotoran_data'] = $this->query_builder->view("SELECT * FROM t_barang WHERE barang_hapus = 0 AND barang_kategori = 4");
+
+		//ayam
+		$data['ayam_data'] = $this->query_builder->view("SELECT * FROM t_barang WHERE barang_hapus = 0 AND barang_kategori = 5");
 
 		//populasi
 		$data['populasi_data'] = $this->query_builder->view_row("SELECT * FROM t_barang WHERE barang_kategori = 5");
@@ -276,6 +296,17 @@ class Recording extends CI_Controller{
 				for ($i = 0; $i < $obat; ++$i) {
 				
 					$this->query_builder->add('t_recording_barang', ['recording_barang_nomor' => $nomor, 'recording_barang_barang' => $_POST['obat'][$i], 'recording_barang_jumlah' => $_POST['obat_jumlah'][$i], 'recording_barang_stok' => $_POST['obat_stok'][$i], 'recording_barang_kategori' => $_POST['obat_kategori'][$i]]);
+				}	
+			}
+
+			//save ayam
+			if (@$_POST['ayam']) {
+
+				$kotoran = count($_POST['ayam']);
+				
+				for ($i = 0; $i < $kotoran; ++$i) {
+				
+					$this->query_builder->add('t_recording_barang', ['recording_barang_nomor' => $nomor, 'recording_barang_barang' => $_POST['ayam'][$i], 'recording_barang_stok' => $_POST['ayam_stok'][$i], 'recording_barang_jumlah' => $_POST['ayam_jumlah'][$i], 'recording_barang_kategori' => $_POST['ayam_kategori'][$i]]);
 				}	
 			}
 

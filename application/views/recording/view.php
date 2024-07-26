@@ -56,6 +56,19 @@ $('form').attr('action', '<?=base_url('recording/update/'.@$data['recording_id']
 
 	<?php endif ?>
 
+	//ayam mati
+	<?php if($v['recording_barang_kategori'] == 'ayam'): ?>
+
+		<?php if($k - 0): ?>
+
+			clone('ayam');
+
+		<?php endif ?>
+
+	<?php $k++ ?>
+
+	<?php endif ?>
+
 	//kotoran
 	<?php if($v['recording_barang_kategori'] == 'kotoran'): ?>
 
@@ -76,6 +89,7 @@ $('form').attr('action', '<?=base_url('recording/update/'.@$data['recording_id']
 <?php $i_p = 0; ?>
 <?php $i_o = 0; ?>
 <?php $i_k = 0; ?>
+<?php $i_a = 0; ?>
 <?php foreach(@$barang_data as  $key => $v): ?>
 
 	//ayam
@@ -109,7 +123,18 @@ $('form').attr('action', '<?=base_url('recording/update/'.@$data['recording_id']
 		<?php $i_o++; ?>
 	<?php endif ?>
 
-	//obat
+	//ayam
+	<?php if($v['barang_kategori'] == 5): ?>
+		
+		$('.ayam:eq(<?=$i_a?>)').val('<?=$v['recording_barang_barang']?>');
+		$('.ayam_stok:eq(<?=$i_a?>)').val('<?=$v['recording_barang_stok']?>');
+		$('.ayam_jumlah:eq(<?=$i_a?>)').val('<?=$v['recording_barang_jumlah']?>');
+		$('.ayam_satuan').text('<?=$v['barang_satuan']?>');
+
+		<?php $i_a++; ?>
+	<?php endif ?>
+
+	//kotoran
 	<?php if($v['barang_kategori'] == 4): ?>
 		
 		$('.kotoran:eq(<?=$i_k?>)').val('<?=$v['recording_barang_barang']?>');

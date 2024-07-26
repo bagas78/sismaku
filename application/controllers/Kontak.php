@@ -62,8 +62,6 @@ class Kontak extends CI_Controller{
 						'kontak_nama' => strip_tags($_POST['nama']),
 						'kontak_alamat' => strip_tags($_POST['alamat']),
 						'kontak_tlp' => strip_tags($_POST['tlp']),
-						'kontak_bank' => strip_tags($_POST['bank']),
-						'kontak_rek' => strip_tags($_POST['rek']),
 					);
 
 		$db = $this->query_builder->add('t_kontak',$set);
@@ -116,8 +114,6 @@ class Kontak extends CI_Controller{
 						'kontak_nama' => strip_tags($_POST['nama']),
 						'kontak_alamat' => strip_tags($_POST['alamat']),
 						'kontak_tlp' => strip_tags($_POST['tlp']),
-						'kontak_bank' => strip_tags($_POST['bank']),
-						'kontak_rek' => strip_tags($_POST['rek']),
 					);
 
 		$where = ['kontak_id' => $id];
