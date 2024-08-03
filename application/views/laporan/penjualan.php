@@ -23,7 +23,7 @@
                     <input name="tanggal" class="form-control" type="month" required value="<?=$tahun_.'-'.$bulan_?>">  
                   </div>
                   <div class="col-md-1">
-                    &#160;
+                    <label>&#160;</label>
                     <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>  
                   </div>
               </form>
@@ -35,7 +35,7 @@
                   <input name="bulan" class="form-control" type="month" required value="<?=$tahun_.'-'.$bulan_?>">  
                 </div>
                 <div class="col-md-1">
-                  &#160;
+                  <label>&#160;</label>
                   <button type="submit" class="btn btn-success"><i class="fa fa-print"></i></button>  
                 </div>
               </form>
@@ -60,7 +60,7 @@
                   </select>  
                 </div>
                 <div class="col-md-1">
-                  &#160;
+                  <label>&#160;</label>
                   <button type="submit" class="btn btn-success"><i class="fa fa-print"></i></button>  
                 </div>
               </form>

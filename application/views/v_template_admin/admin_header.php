@@ -187,6 +187,7 @@
               <li class="obat_sub"><a href="<?=base_url('barang/obat')?>"><i class="fa fa-circle-o"></i> Obat</a></li>
               <li class="kotoran_sub"><a href="<?=base_url('barang/kotoran')?>"><i class="fa fa-circle-o"></i> Kotoran</a></li>
               <li class="ayam_sub"><a href="<?=base_url('barang/ayam')?>"><i class="fa fa-circle-o"></i> Ayam</a></li>
+              <li class="afkir_sub"><a href="<?=base_url('afkir')?>"><i class="fa fa-circle-o"></i> Afkir</a></li>
             </ul>
           </li>
 

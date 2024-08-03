@@ -13,7 +13,7 @@ class Barang extends CI_Controller{
 
 		$data['kategori'] = $get['barang_kategori_nama'];
 		$data['kategori_id'] = $get['barang_kategori_id'];
-		$data['title'] = $get['barang_kategori_nama'];
+		$data['title'] = $get['barang_kategori_nama']; 
 
 	    $this->load->view('v_template_admin/admin_header',$data);
 	    $this->load->view('barang/index'); 

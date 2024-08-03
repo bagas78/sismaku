@@ -58,7 +58,10 @@
                         <select required name="barang[]" class="barang form-control">
                           <option value="" hidden>-- Barang --</option>
                           <?php foreach ($barang_data as $val): ?>
-                            <option for="<?=$val['barang_kategori']?>" value="<?=$val['barang_id']?>"><?=$val['barang_nama']?></option>
+                            <option value="<?=$val['barang_id']?>"><?=$val['barang_nama']?></option>
+                          <?php endforeach ?>
+                          <?php foreach ($afkir_data as $af): ?>
+                            <option value="<?=$af['barang_id']?>"><?=$af['barang_nama']?></option>
                           <?php endforeach ?>
                         </select>
                       </td>

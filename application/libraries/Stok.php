@@ -2,7 +2,7 @@
 class Stok{  
   protected $sql;
   function __construct(){
-        $this->sql = &get_instance();
+        $this->sql = &get_instance(); 
   }
   function update_barang(){ 
    
@@ -12,10 +12,14 @@ class Stok{
       
       $recording = $this->sql->db->query("SELECT b.recording_barang_barang AS barang, b.recording_barang_kategori AS kategori, SUM(b.recording_barang_jumlah) AS jumlah FROM t_recording AS a JOIN t_recording_barang AS b ON a.recording_nomor = b.recording_barang_nomor WHERE a.recording_hapus = 0 GROUP BY b.recording_barang_barang")->result_array();
 
+      $now = date('Y-m-d');
+      $afkir = $this->sql->db->query("SELECT a.pembelian_barang_barang AS barang, SUM(a.pembelian_barang_qty) AS jumlah FROM t_pembelian_barang AS a JOIN t_pembelian AS b ON a.pembelian_barang_nomor = b.pembelian_nomor WHERE a.pembelian_barang_keluar < '$now' AND a.pembelian_barang_kategori = 5 GROUP BY a.pembelian_barang_barang")->result_array();
+ 
       //recording produksi 
 
       //0 stok barang
       $this->sql->db->query("UPDATE t_barang SET barang_stok = 0");
+      $this->sql->db->query("UPDATE t_afkir SET afkir_stok = 0");
 
       //pembelian
       foreach ($pembelian as $val) {
@@ -36,7 +40,16 @@ class Stok{
         $jumlah = $val['jumlah'];  
         $barang = $val['barang'];
 
-        $this->sql->db->query("UPDATE t_barang SET barang_stok = barang_stok - {$jumlah} WHERE barang_id = {$barang}");
+        $cek = $this->sql->db->query("SELECT * FROM t_barang WHERE barang_id = '$barang'")->row_array();
+
+        if ($cek['barang_kategori'] == 5) {
+          // afkir
+          $this->sql->db->query("UPDATE t_afkir SET afkir_stok = afkir_stok - {$jumlah} WHERE afkir_barang = {$barang}");
+        }else{
+          //bukan
+          $this->sql->db->query("UPDATE t_barang SET barang_stok = barang_stok - {$jumlah} WHERE barang_id = {$barang}");
+        }
+        
       }
 
       //recording kurangi stok
@@ -70,6 +83,38 @@ class Stok{
             $this->sql->db->query("UPDATE t_barang SET barang_stok = barang_stok + {$jumlah} WHERE barang_id = {$barang}");
 
             break;
+
+          case 'ayam':
+            
+            $this->sql->db->query("UPDATE t_barang SET barang_stok = barang_stok - {$jumlah} WHERE barang_id = {$barang}");
+
+            break;
+        }
+
+      }
+
+      //afkir
+      foreach ($afkir as $val) {
+        $jumlah = $val['jumlah'];  
+        $barang = $val['barang'];
+
+        //kurangi stok
+        $this->sql->db->query("UPDATE t_barang SET barang_stok = barang_stok - {$jumlah} WHERE barang_id = {$barang}");
+
+        //afkir
+        $set = array(
+                      'afkir_barang' => $barang,
+                      'afkir_stok' => $jumlah,
+                    );
+
+        $cek = $this->sql->db->query("SELECT * FROM t_afkir WHERE afkir_barang = '$barang'")->num_rows();
+        if ($cek > 0) {
+          // ada
+          $this->sql->db->query("UPDATE t_afkir SET afkir_stok = afkir_stok + {$jumlah} WHERE afkir_barang = {$barang}");
+        }else{
+          //belum
+          $this->sql->db->set($set);
+          $this->sql->db->insert('t_afkir');
         }
 
       }

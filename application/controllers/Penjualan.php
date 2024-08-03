@@ -17,7 +17,7 @@ class penjualan extends CI_Controller{
 		else{
 			redirect(base_url('login'));
 		}
-	}
+	} 
 	function transaksi_get(){ 
 
 		$level = $this->session->userdata('level');
@@ -53,7 +53,9 @@ class penjualan extends CI_Controller{
 			$data['nomor'] = 'PJ-'.date('dmy').'-'.($get + 1);
 
 			//barang
-			$data['barang_data'] = $this->query_builder->view("SELECT * FROM t_barang WHERE barang_kategori IN(1,4,6)");
+			$data['barang_data'] = $this->query_builder->view("SELECT * FROM t_barang WHERE barang_kategori IN(1,4)");
+			//afkir
+			$data['afkir_data'] = $this->query_builder->view("SELECT * FROM t_barang as a JOIN t_afkir as b ON a.barang_id = b.afkir_barang WHERE afkir_stok > 0");
 
 		    $this->load->view('v_template_admin/admin_header',$data);
 		    $this->load->view('penjualan/transaksi_add');
@@ -71,13 +73,15 @@ class penjualan extends CI_Controller{
 	}
 	function get_stok($barang){
 
-		$db = $this->query_builder->view_row("SELECT barang_stok as stok, barang_satuan as satuan FROM t_barang WHERE barang_id = '$barang'");
+		$cek = $this->query_builder->view_row("SELECT * FROM t_barang WHERE barang_id = '$barang'");
 
-		// if (@$db) {
-		// 	$stok = (int) $db['stok'];
-		// }else{
-		// 	$stok = 0;
-		// }
+		if ($cek['barang_kategori'] == 5) {
+			// afkir
+			$db = $this->query_builder->view_row("SELECT afkir_stok as stok, barang_satuan as satuan FROM t_barang as a JOIN t_afkir as b ON a.barang_id = b.afkir_barang WHERE a.barang_id = '$barang'");
+		}else{
+			//bukan
+			$db = $this->query_builder->view_row("SELECT barang_stok as stok, barang_satuan as satuan FROM t_barang WHERE barang_id = '$barang'");
+		}
 		
 		echo json_encode($db);
 	}
@@ -169,7 +173,7 @@ class penjualan extends CI_Controller{
 			$data['kategori_data'] = $this->query_builder->view("SELECT * FROM t_barang_kategori");
 
 			//barang
-			$data['barang_data'] = $this->query_builder->view("SELECT * FROM t_barang WHERE barang_kategori IN(1,4,6)");
+			$data['barang_data'] = $this->query_builder->view("SELECT * FROM t_barang WHERE barang_kategori IN(1,4,6,5)");
 
 		    $this->load->view('v_template_admin/admin_header',$data);
 		    $this->load->view('penjualan/transaksi_add');
